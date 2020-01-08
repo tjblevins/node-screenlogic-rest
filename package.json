@@ -1,0 +1,11 @@
+{
+  "name": "screenlogic-rest",
+  "version": "1.0.0",
+  "description": "REST API for Pentair ScreenLogic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tom Blevins",
+  "license": "ISC"
+}
