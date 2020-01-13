@@ -6,24 +6,7 @@ const ScreenLogic = require('node-screenlogic');
 
 //Define API Routes
 const productRoutes = require('./api/routes/products');
-
-// Connect to Pentair ScreenLogic System
-// use this to remote connect to a system by name (going through the Pentair servers)
-const systemName = 'Pentair: 0B-C3-6C';
-const password = '';
-
-var remote = new ScreenLogic.RemoteLogin(systemName);
-remote.on('gatewayFound', function(unit) {
-   remote.close();
-   if (unit && unit.gatewayFound) {
-     console.log('unit ' + remote.systemName + ' found at ' + unit.ipAddr + ':' + unit.port);
-     connect(new ScreenLogic.UnitConnection(unit.port, unit.ipAddr, password));
-   } else {
-     console.log('no unit found by that name');
-   }
- });
-
-//remote.connect();
+const configRoutes = require('./api/routes/config');
 
 //Used for Loging and API Body Parsing
 app.use(morgan('dev'));
@@ -44,8 +27,11 @@ app.use((req, res, next) =>{
     next();
 });
 
+
 // Routes to handle requests
 app.use('/products', productRoutes);
+app.use('/config', configRoutes);
+
 
 // Manage Errors
 app.use((req, res, next) => {
