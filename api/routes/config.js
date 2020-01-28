@@ -29,7 +29,7 @@ remote.connect();
 //Handel Requests for Products
 router.get('/', (req, res, next) => {
       res.status(200).json({
-        message: 'Handling GET Request to / Products'
+        message: 'Handling GET Request to / Config'
     });
 });
 
@@ -39,28 +39,28 @@ let slVer;
 function connect(client) {
     client.on('loggedIn', function() {
       this.getControllerConfig();
-    }).on('controllerConfig', function(config) {
+    }).on('controllerConfig', function(controller) {
       //Route to handler for Controller Config API
       router.get('/:prodId/controller', (req, res, next) => {
         const id = req.params.prodId;
         if (id === systemName) {
           res.status(200).json({
             id: id,
-            controllerId: config.controllerId,
-            controllerType: config.controllerType,
-            hasSolar: config.hasSolar(),
-            hasSolarAsHeatpump: config.hasSolarAsHeatpump(),
-            hasChlorinator: config.hasChlorinator(),
-            hasCooling: config.hasCooling(),
-            hasIntellichem: config.hasIntellichem(),
-//            hwType: config.hwType,
-//            controllerData: config.controllerData,
-            equipFlags: config.equipFlags,
-            genCircuitName: config.genCircuitName,
-            bodyArray: config.bodyArray,
-//            pumpCircArray: config.pumpCircArray,
-//            interfaceTabFlags: config.interfaceTabFlags,
-            showAlarms: config.showAlarms
+            controllerId: controller.controllerId,
+            controllerType: controller.controllerType,
+            hasSolar: controller.hasSolar(),
+            hasSolarAsHeatpump: controller.hasSolarAsHeatpump(),
+            hasChlorinator: controller.hasChlorinator(),
+            hasCooling: controller.hasCooling(),
+            hasIntellichem: controller.hasIntellichem(),
+            hwType: controller.hwType,
+//            controllerData: controller.controllerData,
+            equipFlags: controller.equipFlags,
+            genCircuitName: controller.genCircuitName,
+            bodyArray: controller.bodyArray,
+            pumpCircArray: controller.pumpCircArray,
+//            interfaceTabFlags: controller.interfaceTabFlags,
+            showAlarms: controller.showAlarms
           });
         } else {
           res.status(200).json({
@@ -69,8 +69,34 @@ function connect(client) {
           });
         }
       });
-//      this.getPoolStatus();
+      this.getSaltCellConfig();
+//      client.close();
+    }).on('saltCellConfig', function(saltCell) {
+      //Route to handler for SaltCell Config API
+      router.get('/:prodId/saltcell', (req, res, next) => {
+        const id = req.params.prodId;
+        if (id === systemName) {
+          res.status(200).json({
+            id: id,
+            installed: saltCell.installed,
+            status: saltCell.status,
+            poolOutput: saltCell.level1,
+            spaOutput: saltCell.level2,
+            saltPpm: saltCell.salt,
+            flags: saltCell.flags,
+            superChlorTimer: saltCell.superChlorTimer
+          });
+        } else {
+          res.status(200).json({
+            id: id,
+            message: 'You passed an incorrect ID'
+          });
+        }
+      });
+//    this.getSaltCellConfig();
       client.close();
+
+
     }).on('loginFailed', function() {
       client.close();
     });

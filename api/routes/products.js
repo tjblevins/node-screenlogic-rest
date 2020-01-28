@@ -112,7 +112,6 @@ function connect(client) {
           });
         }
       });
-
       client.close();
     }).on('loginFailed', function() {
       client.close();

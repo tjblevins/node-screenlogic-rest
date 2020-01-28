@@ -7,6 +7,7 @@ const ScreenLogic = require('node-screenlogic');
 //Define API Routes
 const productRoutes = require('./api/routes/products');
 const configRoutes = require('./api/routes/config');
+const chemRoutes = require('./api/routes/chemdata');
 
 //Used for Loging and API Body Parsing
 app.use(morgan('dev'));
@@ -31,7 +32,7 @@ app.use((req, res, next) =>{
 // Routes to handle requests
 app.use('/products', productRoutes);
 app.use('/config', configRoutes);
-
+app.use('/chemdata', chemRoutes);
 
 // Manage Errors
 app.use((req, res, next) => {
