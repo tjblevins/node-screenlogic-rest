@@ -40,28 +40,28 @@ function connect(client) {
     client.on('loggedIn', function() {
       this.getChemicalData();
     }).on('chemicalData', function(chemData) {
-      //Route to handler for ChemData Status
+      //Route to handler for ChemData
       router.get('/:prodId/status/', (req, res, next) => {
         const id = req.params.prodId;
         if (id === systemName) {
           res.status(200).json({
             id: id,
-            isValid: chemData.isValid
-          });
-        } else {
-          res.status(200).json({
-            id: id,
-            message: 'You passed an incorrect ID'
-          });
-        }
-      });
-      //Route to handler for ChemData PH
-      router.get('/:prodId/status/ph', (req, res, next) => {
-        const id = req.params.prodId;
-        if (id === systemName) {
-          res.status(200).json({
-            id: id,
-            pH: chemData.pH
+            isValid: chemData.isValid,
+            pH: chemData.pH,
+            orp: chemData.orp,
+            pHSetPoint: chemData.pHSetPoint,
+            orpSetPoint: chemData.orpSetPoint,
+            pHTankLevel: chemData.pHTankLevel,
+            orpTankLevel: chemData.orpTankLevel,
+            saturation: chemData.saturation,
+            calcium: chemData.calcium,
+            cyanuricAcid: chemData.cyanuricAcid,
+            alkalinity: chemData.alkalinity,
+            saltPPM: chemData.saltPPM,
+            temperature: chemData.temperature,
+            corrosive: chemData.corrosive,
+            scaling: chemData.scaling,
+            error: chemData.error
           });
         } else {
           res.status(200).json({
