@@ -1,3 +1,4 @@
+//Version 0.6
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
@@ -6,8 +7,8 @@ const ScreenLogic = require('node-screenlogic');
 
 //Define API Routes
 const productRoutes = require('./api/routes/products');
-//const configRoutes = require('./api/routes/config');
-//const chemRoutes = require('./api/routes/chemdata');
+const configRoutes = require('./api/routes/config');
+const chemRoutes = require('./api/routes/chemdata');
 const testRoutes = require('./api/routes/test');
 
 //Used for Loging and API Body Parsing
@@ -32,8 +33,8 @@ app.use((req, res, next) =>{
 
 // Routes to handle requests
 app.use('/products', productRoutes);
-//app.use('/config', configRoutes);
-//app.use('/chemdata', chemRoutes);
+app.use('/config', configRoutes);
+app.use('/chemdata', chemRoutes);
 app.use('/test', testRoutes);
 
 // Manage Errors

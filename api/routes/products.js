@@ -1,3 +1,4 @@
+//Version 0.6
 const express = require('express');
 const router = express.Router();
 const ScreenLogic = require('node-screenlogic');
@@ -13,10 +14,10 @@ var connectTest = {
 }
 var resultPass = 1;
 
-//Handel Requests for Test
+//Handel Requests for Products
 router.get('/', (req, res, next) => {
     res.status(200).json({
-      message: 'Handling GET Request to / Test'
+      message: 'Handling GET Request to / Products'
   });
 });
 

@@ -1,3 +1,5 @@
+//Version 0.6
+
 const http = require('http');
 const app = require('node-screenlogic-rest/app');
 
