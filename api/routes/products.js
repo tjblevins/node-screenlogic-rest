@@ -12,6 +12,12 @@ const pentairConfig = JSON.parse(obj);
 var connectTest = {
   result: null
 }
+var connectInfo = {
+  ipAddr: null,
+  port: null
+}
+
+
 var resultPass = 1;
 
 //Handel Requests for Products
@@ -39,6 +45,8 @@ router.get('/:configId/version', (req, res, next) => {
       if (unit && unit.gatewayFound) {
         var connectResult = 1;
         connectTest.result = connectResult;
+        connectInfo.ipAddr = unit.ipAddr;
+        connectInfo.port = unit.port;
         console.log('unit ' + remote.systemName + ' found at ' + unit.ipAddr + ':' + unit.port);
         connect(new ScreenLogic.UnitConnection(unit.port, unit.ipAddr, password));
       } else {
@@ -57,7 +65,9 @@ router.get('/:configId/version', (req, res, next) => {
         //Format Responce
         res.status(200).json({
             id: systemName,
-            version: slVersion
+            version: slVersion,
+            ip: connectInfo.ipAddr,
+            port: connectInfo.port
             });   
         client.close();
       });
