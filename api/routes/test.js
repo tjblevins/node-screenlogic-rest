@@ -27,7 +27,7 @@ router.get('/:configId/version', (req, res, next) => {
     let systemName = uqry;
     let systemNameFull = 'Pentair: ' + systemName;
     let password = pqry;
-    //Connect to ScreenLogic
+    //Test and Set Connection Parameters to ScreenLogic
     let remote = new ScreenLogic.RemoteLogin(systemNameFull);
     remote.on('gatewayFound', function(unit) {
       remote.close();
@@ -39,20 +39,26 @@ router.get('/:configId/version', (req, res, next) => {
       }
     });
     remote.connect();
+
     // Get Data From Pentair
+var client;
     function connect(client) {
-      client.on('loggedIn', function() {
+      client.on('loggedIn', function(unit) {
+        
+        //node-ScreenLogic Meathod to query Interface
         this.getVersion();
       }).on('version', function(version) {
+        let slVersion = version.version
         //Format Responce
         res.status(200).json({
-          message: systemNameFull,
-          varsion: varsion.varsion
-        });
+            message: "Test",
+            version: slVersion
+            });   
         client.close();
       });
       client.connect();
     }
+
   });
 
 
