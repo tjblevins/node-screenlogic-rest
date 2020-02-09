@@ -77,6 +77,67 @@ router.get('/:configId/controller', (req, res, next) => {
     }
 });
 
+//Route to handler for Controller Config API
+router.get('/:configId/controller/circuit/:arrayId', (req, res, next) => {
+  //Parse URL Req for User an Pass for ScreenLogic Controller
+  let configId = req.params.configId
+  let uid = 'pentairConfig.userArray[' + configId + '].slID';
+  let pid = 'pentairConfig.userArray[' + configId + '].slPass';
+  let uqry = eval(uid);
+  let pqry = eval(pid);    
+  let systemName = uqry;
+  let systemNameFull = 'Pentair: ' + systemName;
+  let password = pqry;
+  //Test and Set Connection Parameters to ScreenLogic
+  let remote = new ScreenLogic.RemoteLogin(systemNameFull);
+  remote.on('gatewayFound', function(unit) {
+    remote.close();
+    if (unit && unit.gatewayFound) {
+      var connectResult = 1;
+      connectTest.result = connectResult;
+      console.log('unit ' + remote.systemName + ' found at ' + unit.ipAddr + ':' + unit.port);
+      connect(new ScreenLogic.UnitConnection(unit.port, unit.ipAddr, password));
+    } else {
+      console.log('no unit found by that name');
+    }
+  });
+  remote.connect();
+
+  // Get Data From Pentair
+  function connect(client) {
+    client.on('loggedIn', function(unit) {
+      //node-ScreenLogic Meathod to query Interface
+      this.getControllerConfig();
+    }).on('controllerConfig', function(controller) {
+//        let slVersion = version.version
+      let arrayId = req.params.arrayId;
+      let aid = 'controller.bodyArray[' + arrayId + ']';
+      let circuit = eval(aid);
+      //Format Responce
+      res.status(200).json({
+          id: systemName,
+          controllerId: controller.controllerId,
+          circuitId: circuit.circuitId,
+          name: circuit.name,
+          nameIndex: circuit.nameIndex,
+          function: circuit.function,
+          interface: circuit.interface,
+          flags: circuit.flags,
+          colorSet: circuit.colorSet,
+          colorPos: circuit.colorPos,
+          colorStagger: circuit.colorStagger,
+          deviceId: circuit.deviceId,
+          dfaultRt: circuit.dfaultRt
+          });   
+      client.close();
+    });
+    client.connect();
+  }
+});
+
+
+
+
 //Route to handler for SaltCell Config API
 router.get('/:configId/saltcell', (req, res, next) => {
   //Parse URL Req for User an Pass for ScreenLogic Controller
