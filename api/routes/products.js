@@ -123,7 +123,8 @@ router.get('/:configId/status/pool', (req, res, next) => {
         pHTankLevel: status.pHTank,
         orp: status.orp,
         orpTankLevel: status.orpTank,
-        saturation: status.saturation
+        saturation: status.saturation,
+//        circuitArray: status.circuitArray
           });   
       client.close();
     });
@@ -180,6 +181,7 @@ router.get('/:configId/status/spa', (req, res, next) => {
         orp: status.orp,
         orpTankLevel: status.orpTank,
         saturation: status.saturation
+
           });   
       client.close();
     });
