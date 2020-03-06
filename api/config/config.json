@@ -2,9 +2,19 @@
     "userArray": [
         {
         "configID": 0,
+        "wsSysId": "dd2f4b65dbc3c81067e4b7bc29961957",
+        "psSysID": "6fe5fe54db4bc41067e4b7bc29961950",
         "slID": "0B-C3-6C",
         "slPass": ""
-        }
+        },
+        {
+        "configID": 1,
+        "wsSysId": "dd2f4b65dbc3c81067e4b7bc29961957",
+        "psSysID": "6fe5fe54db4bc41067e4b7bc29961950",
+        "slID": "A1-B2-C3",
+        "slPass": ""
+        },
+        {}
 
     ]
 }
