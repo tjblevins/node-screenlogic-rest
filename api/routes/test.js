@@ -21,10 +21,18 @@ router.get('/', (req, res, next) => {
   });
 });
 
-//Route to handler for ChemData
-router.get('/:configId/status', (req, res, next) => {
+//Route to handler for SaltCellOutput
+router.post('/:configId/saltcell/output', (req, res, next) => {
     //Parse URL Req for User an Pass for ScreenLogic Controller
     let configId = req.params.configId
+    let info = {
+      controllerId: req.body.controllerId,
+      poolOutput: req.body.poolOutput,
+      spaOutput: req.body.spaOutput
+//      controllerId: 0,
+//      poolOutput: 75,
+//      spaOutput: 0
+    };
     let uid = 'pentairConfig.userArray[' + configId + '].slID';
     let pid = 'pentairConfig.userArray[' + configId + '].slPass';
     let uqry = eval(uid);
@@ -51,28 +59,14 @@ router.get('/:configId/status', (req, res, next) => {
     function connect(client) {
       client.on('loggedIn', function(unit) {
         //node-ScreenLogic Meathod to query Interface
-        this.getChemicalData();
-      }).on('chemicalData', function(chemData) {
+        this.setSaltCellOutput(info.controllerId,info.poolOutput,info.spaOutput);
+        this.getSaltCellConfig();
+      }).on('saltCellConfig', function(saltCell) {
 //        let slVersion = version.version
         //Format Responce
         res.status(200).json({
-            id: systemName,
-            isValid: chemData.isValid,
-            pH: chemData.pH,
-            orp: chemData.orp,
-            pHSetPoint: chemData.pHSetPoint,
-            orpSetPoint: chemData.orpSetPoint,
-            pHTankLevel: chemData.pHTankLevel,
-            orpTankLevel: chemData.orpTankLevel,
-            saturation: chemData.saturation,
-            calcium: chemData.calcium,
-            cyanuricAcid: chemData.cyanuricAcid,
-            alkalinity: chemData.alkalinity,
-            saltPPM: chemData.saltPPM,
-            temperature: chemData.temperature,
-            corrosive: chemData.corrosive,
-            scaling: chemData.scaling,
-            error: chemData.error
+            message: 'Set SaltCell Output',
+            setOutput: info
             });   
         client.close();
       });
