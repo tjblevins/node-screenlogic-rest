@@ -27,25 +27,36 @@ router.get('/:configId/status', (req, res, next) => {
     let configId = req.params.configId
     let uid = 'pentairConfig.userArray[' + configId + '].slID';
     let pid = 'pentairConfig.userArray[' + configId + '].slPass';
+    let slIp = 'pentairConfig.userArray[' + configId + '].slIp';
+    let slPort = 'pentairConfig.userArray[' + configId + '].slPort';
     let uqry = eval(uid);
-    let pqry = eval(pid);    
+    let pqry = eval(pid);
+    let unitIp = eval(slIp);
+    let unitPort = eval(slPort);    
     let systemName = uqry;
+    let uipAddress = unitIp;
+    let uPort = unitPort; 
     let systemNameFull = 'Pentair: ' + systemName;
     let password = pqry;
+    connect(new ScreenLogic.UnitConnection(uPort, uipAddress));
+
+
     //Test and Set Connection Parameters to ScreenLogic
-    let remote = new ScreenLogic.RemoteLogin(systemNameFull);
-    remote.on('gatewayFound', function(unit) {
-      remote.close();
-      if (unit && unit.gatewayFound) {
-        var connectResult = 1;
-        connectTest.result = connectResult;
-        console.log('unit ' + remote.systemName + ' found at ' + unit.ipAddr + ':' + unit.port);
-        connect(new ScreenLogic.UnitConnection(unit.port, unit.ipAddr, password));
-      } else {
-        console.log('no unit found by that name');
-      }
-    });
-    remote.connect();
+//    let remote = new ScreenLogic.RemoteLogin(systemNameFull);
+//    remote.on('gatewayFound', function(unit) {
+//      remote.close();
+//      if (unit && unit.gatewayFound) {
+//        var connectResult = 1;
+//        connectTest.result = connectResult;
+//        connectInfo.ipAddr = unit.ipAddr;
+//        connectInfo.port = unit.port;
+//        console.log('unit ' + remote.systemName + ' found at ' + unit.ipAddr + ':' + unit.port);
+//        connect(new ScreenLogic.UnitConnection(unit.port, unit.ipAddr, password));
+//      } else {
+//        console.log('no unit found by that name');
+//      }
+//    });
+//    remote.connect();
 
     // Get Data From Pentair
     function connect(client) {
