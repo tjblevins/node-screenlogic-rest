@@ -47,22 +47,6 @@ router.get('/:configId/version', (req, res, next) => {
     connect(new ScreenLogic.UnitConnection(uPort, uipAddress));
 
 
-    //Test and Set Connection Parameters to ScreenLogic
-//    let remote = new ScreenLogic.RemoteLogin(systemNameFull);
-//    remote.on('gatewayFound', function(unit) {
-//      remote.close();
-//      if (unit && unit.gatewayFound) {
-//        var connectResult = 1;
-//        connectTest.result = connectResult;
-//        connectInfo.ipAddr = unit.ipAddr;
-//        connectInfo.port = unit.port;
-//        console.log('unit ' + remote.systemName + ' found at ' + unit.ipAddr + ':' + unit.port);
-//        connect(new ScreenLogic.UnitConnection(unit.port, unit.ipAddr, password));
-//      } else {
-//        console.log('no unit found by that name');
-//      }
-//    });
-//    remote.connect();
 
     // Get Data From Pentair
     function connect(client) {
