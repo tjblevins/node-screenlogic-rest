@@ -313,7 +313,49 @@ router.post('/:configId/saltcell/output', (req, res, next) => {
     }
 });
 
+//Route to handler for Pump Status Config API
+router.get('/:configId/pump/:pumpId', (req, res, next) => {
+  //Parse URL Req for User an Pass for ScreenLogic Controller
+  let configId = req.params.configId
+  let pumpId = req.params.pumpId
+  let uid = 'pentairConfig.userArray[' + configId + '].slID';
+  let pid = 'pentairConfig.userArray[' + configId + '].slPass';
+  let slIp = 'pentairConfig.userArray[' + configId + '].slIp';
+  let slPort = 'pentairConfig.userArray[' + configId + '].slPort';
+  let uqry = eval(uid);
+  let pqry = eval(pid);
+  let unitIp = eval(slIp);
+  let unitPort = eval(slPort);    
+  let systemName = uqry;
+  let uipAddress = unitIp;
+  let uPort = unitPort; 
+  let systemNameFull = 'Pentair: ' + systemName;
+  let password = pqry;
+  connect(new ScreenLogic.UnitConnection(uPort, uipAddress));
 
+// Get Data From Pentair
+function connect(client) {
+  client.on('loggedIn', function(unit) {
+    //node-ScreenLogic Meathod to query Interface
+    this.getPumpStatus(pumpId);
+  }).on('getPumpStatus', function(pumpStatus) {
+//        let slVersion = version.version
+    //Format Responce
+    res.status(200).json({
+        id: systemName,
+        status: pumpStatus.isRunning,
+        type: pumpStatus.pumpType,
+        watts: pumpStatus.pumpWatts,
+        rpms: pumpStatus.pumpRPMs,
+        gpms: pumpStatus.pumpGPMs,
+        setting: pumpStatus.pumpSetting
+
+        });   
+    client.close();
+  });
+  client.connect();
+}
+});
 
 
 
