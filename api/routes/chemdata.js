@@ -1,13 +1,11 @@
-//const rootDir = "/usr/lib/node_modules/node-screenlogic-rest/";
-
-//Version 0.6
+//Version 0.7
 const express = require('express');
 const router = express.Router();
 const ScreenLogic = require('node-screenlogic');
 
 //Parse Pentair Config File
 const fs = require("fs");
-const obj = fs.readFileSync("/usr/lib/node_modules/node-screenlogic-rest/api/config/config.json");
+const obj = fs.readFileSync("api/config/config.json");
 const pentairConfig = JSON.parse(obj);
 
 //Setting Global Variables

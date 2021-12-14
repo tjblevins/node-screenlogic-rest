@@ -1,14 +1,11 @@
-//const rootDir = "/usr/lib/node_modules/node-screenlogic-rest/";
-
-//Version 0.6
+//Version 0.7
 const express = require('express');
 const router = express.Router();
 const ScreenLogic = require('node-screenlogic');
 
 //Parse Pentair Config File
-
 const fs = require("fs");
-const obj = fs.readFileSync("/usr/lib/node_modules/node-screenlogic-rest/api/config/config.json");
+const obj = fs.readFileSync("api/config/config.json");
 const pentairConfig = JSON.parse(obj);
 
 //Setting Global Variables
@@ -44,6 +41,8 @@ router.get('/:configId/version', (req, res, next) => {
     let unitPort = eval(slPort);    
     let systemName = uqry;
     let uipAddress = unitIp;
+    let pssysid = 'pentairConfig.userArray[' + configId + '].psSysID';
+    let psSysId = eval(pssysid);
     let uPort = unitPort; 
     let systemNameFull = 'Pentair: ' + systemName;
     let password = pqry;
@@ -60,11 +59,16 @@ router.get('/:configId/version', (req, res, next) => {
         let slVersion = version.version
         //Format Responce
         res.status(200).json({
-            id: systemName,
-            version: slVersion,
-            ip: uipAddress,
-            port: uPort
-            });   
+          results : 
+            [
+              {
+                id : systemName,
+                version : slVersion,
+                ip : uipAddress,
+                port : uPort,
+                ps_sysid : psSysId,
+            }]
+          });   
         client.close();
       });
       client.connect();
@@ -89,24 +93,6 @@ router.get('/:configId/status/pool', (req, res, next) => {
     let systemNameFull = 'Pentair: ' + systemName;
     let password = pqry;
     connect(new ScreenLogic.UnitConnection(uPort, uipAddress));
-
-
-    //Test and Set Connection Parameters to ScreenLogic
-//    let remote = new ScreenLogic.RemoteLogin(systemNameFull);
-//    remote.on('gatewayFound', function(unit) {
-//      remote.close();
-//      if (unit && unit.gatewayFound) {
-//        var connectResult = 1;
-//        connectTest.result = connectResult;
-//        connectInfo.ipAddr = unit.ipAddr;
-//        connectInfo.port = unit.port;
-//        console.log('unit ' + remote.systemName + ' found at ' + unit.ipAddr + ':' + unit.port);
-//        connect(new ScreenLogic.UnitConnection(unit.port, unit.ipAddr, password));
-//      } else {
-//        console.log('no unit found by that name');
-//      }
-//    });
-//    remote.connect();
 
   // Get Data From Pentair
   function connect(client) {
@@ -157,24 +143,6 @@ router.get('/:configId/status/spa', (req, res, next) => {
     let systemNameFull = 'Pentair: ' + systemName;
     let password = pqry;
     connect(new ScreenLogic.UnitConnection(uPort, uipAddress));
-
-
-    //Test and Set Connection Parameters to ScreenLogic
-//    let remote = new ScreenLogic.RemoteLogin(systemNameFull);
-//    remote.on('gatewayFound', function(unit) {
-//      remote.close();
-//      if (unit && unit.gatewayFound) {
-//        var connectResult = 1;
-//        connectTest.result = connectResult;
-//        connectInfo.ipAddr = unit.ipAddr;
-//        connectInfo.port = unit.port;
-//        console.log('unit ' + remote.systemName + ' found at ' + unit.ipAddr + ':' + unit.port);
-//        connect(new ScreenLogic.UnitConnection(unit.port, unit.ipAddr, password));
-//      } else {
-//        console.log('no unit found by that name');
-//      }
-//    });
-//    remote.connect();
 
   // Get Data From Pentair
   function connect(client) {

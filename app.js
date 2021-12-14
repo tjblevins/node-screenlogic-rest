@@ -10,6 +10,7 @@ const productRoutes = require('./api/routes/products');
 const configRoutes = require('./api/routes/config');
 const chemRoutes = require('./api/routes/chemdata');
 const testRoutes = require('./api/routes/test');
+const etlRoutes = require('./api/routes/etl');
 
 //Used for Loging and API Body Parsing
 app.use(morgan('dev'));
@@ -36,6 +37,7 @@ app.use('/products', productRoutes);
 app.use('/config', configRoutes);
 app.use('/chemdata', chemRoutes);
 app.use('/test', testRoutes);
+app.use('/etl', etlRoutes);
 
 // Manage Errors
 app.use((req, res, next) => {
