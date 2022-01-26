@@ -9,16 +9,16 @@ const obj = fs.readFileSync("api/config/config.json");
 const pentairConfig = JSON.parse(obj);
 
 //Setting Global Variables
-var connectTest = {
-  result: null
-}
-var connectInfo = {
-  ipAddr: null,
-  port: null
-}
+//var connectTest = {
+//  result: null
+//}
+//var connectInfo = {
+//  ipAddr: null,
+//  port: null
+//}
 
 
-var resultPass = 1;
+//var resultPass = 1;
 
 //Handel Requests for Products
 router.get('/', (req, res, next) => {
