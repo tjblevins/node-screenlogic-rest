@@ -1,16 +1,16 @@
 {
-"host" : "itomblevinsdemo.service-now.com",
+"host" : "tekneptunedevdemo.service-now.com",
 "apiPathCircuit" : "/api/x_snc_nodesl_mon/monitoring_pentair/cirstat",
 "apiPathTempStat" : "/api/x_snc_nodesl_mon/monitoring_pentair/tempstat/",
 "apiPathChemData" : "/api/x_snc_nodesl_mon/monitoring_pentair/tempstat/",
 "apiPathPumpStat" : "/api/x_snc_nodesl_mon/monitoring_pentair/pumpstat",
 "apiUser" : "psuser",
 "apiPass" : "Aw3s0m31",
-"midSysId" : "ae88a33c1b7b60d0345eddbddc4bcb45",
+"midSysId" : "75334c5d8735cd102afecaa7cebb35f9",
 "midOIUser" : "mid.oi",
 "midOIPass" : "Aw3s0m31",
-"midIp" : "192.168.55.154",
+"midIp" : "192.168.4.71",
 "midPort" : "8181",
-"company_sysid" : "292cf379db9aa010a554c9003996198d",
-"ps_sysid": "3f691a06dbd6e010a554c90039961940"
+"company_sysid" : "8d0a5b4d873949100aa621b8cebb357b",
+"ps_sysid": "2c02e57e873d05500aa621b8cebb3578"
 }

@@ -5,8 +5,8 @@
             "version": "POOL: 5.2 Build 738.0 Rel",
             "ip": "192.168.4.197",
             "port": "80",
-            "sl_api_ip": "192.168.55.154",
-            "sl_api_port": "80"
+            "sl_api_ip": "192.168.55.155",
+            "sl_api_port": "8080"
         }
     ]
 }
