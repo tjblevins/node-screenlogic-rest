@@ -1,0 +1,17 @@
+{
+    "id":"16-D0-F0",
+    "featureName":"space",
+    "midSysId":"75334c5d8735cd102afecaa7cebb35f9",
+    "poolActive":true,
+    "spaActive":false,
+    "freezeMode":0,
+    "airTemp":39,
+    "poolTemp":48,
+    "poolTempSetPoint":40,
+    "poolHeatStatus":0,
+    "poolHeatMode":3,
+    "spaTemp":46,
+    "spaTempSetPoint":40,
+    "spaHeatStatus":0,
+    "spaHeatMode":0
+}

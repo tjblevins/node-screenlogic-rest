@@ -6,7 +6,7 @@
 "apiPathPumpStat" : "/api/x_snc_nodesl_mon/monitoring_pentair/pumpstat",
 "apiUser" : "psuser",
 "apiPass" : "Aw3s0m31",
-"midSysId" : "75334c5d8735cd102afecaa7cebb35f9",
+"midSysId" : "2be2fd7687bd8d502afecaa7cebb3556",
 "midOIUser" : "mid.oi",
 "midOIPass" : "Aw3s0m31",
 "midIp" : "192.168.4.71",

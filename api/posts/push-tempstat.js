@@ -71,7 +71,7 @@ function connect(client){
           }
         })
         .then(res => {
-        //console.log(`statusCode: ${res.status}`)
+        console.log(`statusCode: ${res.status}`)
         //console.log(res)
         })
         .catch(error => {
