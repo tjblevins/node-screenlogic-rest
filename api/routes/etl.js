@@ -6,15 +6,15 @@ const ScreenLogic = require('node-screenlogic');
 //Parse Pentair Config File
 const fs = require("fs");
 const { version } = require('os');
-const obj = fs.readFileSync("api/config/config.json");
+const obj = fs.readFileSync("/usr/lib/node_modules/node-screenlogic-rest/api/config/config.json");
 const pentairConfig = JSON.parse(obj);
 
 //Parse ServiceNow Config File
-const snConfigFile = fs.readFileSync("api/config/snconfig.json");
+const snConfigFile = fs.readFileSync("/usr/lib/node_modules/node-screenlogic-rest/api/config/snconfig.json");
 const snConfig = JSON.parse(snConfigFile);
 
 //Parse Gateway Config File
-const gwConfigFile = fs.readFileSync("api/config/gwconfig.json");
+const gwConfigFile = fs.readFileSync("/usr/lib/node_modules/node-screenlogic-rest/api/config/gwconfig.json");
 const gwConfig = JSON.parse(gwConfigFile);
 
 //Setting Global Variables

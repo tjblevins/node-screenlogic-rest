@@ -6,11 +6,11 @@ const bodyParser = require('body-parser');
 const ScreenLogic = require('node-screenlogic');
 
 //Define API Routes
-const productRoutes = require('./api/routes/products');
-const configRoutes = require('./api/routes/config');
-const chemRoutes = require('./api/routes/chemdata');
-const testRoutes = require('./api/routes/test');
-const etlRoutes = require('./api/routes/etl');
+const productRoutes = require('/usr/lib/node_modules/node-screenlogic-rest/api/routes/products');
+const configRoutes = require('/usr/lib/node_modules/node-screenlogic-rest/api/routes/config');
+const chemRoutes = require('/usr/lib/node_modules/node-screenlogic-rest/api/routes/chemdata');
+const testRoutes = require('/usr/lib/node_modules/node-screenlogic-rest/api/routes/test');
+const etlRoutes = require('/usr/lib/node_modules/node-screenlogic-rest/api/routes/etl');
 
 //Used for Loging and API Body Parsing
 app.use(morgan('dev'));
